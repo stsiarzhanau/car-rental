@@ -1,6 +1,6 @@
 import type { Car } from '../types';
 
-const mockCarData: Car[] = [
+const mockCarsData: Car[] = [
   {
     id: '1',
     model: 'Model 3',
@@ -52,4 +52,4 @@ const mockCarData: Car[] = [
   },
 ];
 
-export default mockCarData;
+export default mockCarsData;
