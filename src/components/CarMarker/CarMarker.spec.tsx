@@ -21,7 +21,7 @@ vi.mock('@vis.gl/react-google-maps', () => ({
 }));
 
 describe('CarMarker', () => {
-  it('should render a marker', () => {
+  it('should render a marker with a car image', () => {
     render(
       <CarMarker
         id="1"
@@ -40,7 +40,7 @@ describe('CarMarker', () => {
     render(
       <CarMarker
         id="1"
-        location={{ lat: 37.7749, lng: -122.4194 }}
+        location={{ lat: 24.451911, lng: 54.396798 }}
         vendor="Tesla"
         model="Model S"
       />,
@@ -49,6 +49,7 @@ describe('CarMarker', () => {
     await user.click(screen.getByTestId('advanced-marker'));
     expect(screen.getByTestId('info-window')).toBeInTheDocument();
     expect(screen.getByText('Tesla Model S')).toBeInTheDocument();
+
     await user.click(screen.getByTestId('advanced-marker'));
     expect(screen.queryByTestId('info-window')).not.toBeInTheDocument();
     expect(screen.queryByText('Tesla Model S')).not.toBeInTheDocument();

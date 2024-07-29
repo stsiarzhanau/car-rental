@@ -30,7 +30,7 @@ export default function CarMarker({ id, location, vendor, model }: Partial<Car>)
           src="/car.svg"
           alt="Car"
           className={clsx('w-8 transition-[width] duration-200', {
-            'w-10': id === rentId,
+            'w-12': id === rentId,
           })}
         />
       </AdvancedMarker>
