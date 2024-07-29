@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tanstack/react-table';
 import { clsx } from 'clsx';
+import { format } from 'date-fns';
 import { useAtom } from 'jotai';
 
 import { returnIdAtom, returnLocationAtom } from '../../atoms';
@@ -19,16 +20,21 @@ const columns: ColumnDef<Car>[] = [
   {
     header: 'Available',
     accessorKey: 'available',
-    cell: (info) => (info.getValue() ? <img src="/checkmark.svg" className="w-4" alt="Yes" /> : ''),
+    cell: (info) => (
+      <div className="grid place-items-center">
+        {info.getValue() ? <img src="/checkmark.svg" className="w-4" alt="Yes" /> : ''}
+      </div>
+    ),
   },
   {
     header: 'Booked By',
     accessorKey: 'bookedBy',
+    cell: (info) => info.getValue() ?? '-',
   },
   {
     header: 'Booked At',
     accessorKey: 'bookedAt',
-    cell: (info) => (info.getValue() as Date)?.toLocaleString(),
+    cell: (info) => (info.getValue() ? format(info.getValue() as Date, 'dd.MM.yy HH:mm:ss') : '-'),
   },
   {
     header: 'Location',
@@ -63,8 +69,8 @@ export default function CarTable() {
   };
 
   return (
-    <table className="min-w-full divide-y divide-gray-700">
-      <thead className="bg-gray-800">
+    <table className="min-w-full divide-y divide-gray-700 bg-gray-800">
+      <thead className="sticky top-0 bg-inherit">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
@@ -80,25 +86,30 @@ export default function CarTable() {
           </tr>
         ))}
       </thead>
-      <tbody className="divide-y divide-gray-700 bg-gray-800">
-        {table.getRowModel().rows.map((row) => (
-          <tr
-            key={row.id}
-            onClick={() => handleRowClick(row)}
-            className={clsx({ 'bg-gray-700': row.original.id === returnId })}
-          >
-            {row.getVisibleCells().map((cell) => (
-              <td
-                key={cell.id}
-                className={clsx('whitespace-nowrap px-6 py-4 text-sm text-gray-400', {
-                  'text-gray-50': row.original.id === returnId,
-                })}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
+      <tbody className="divide-y divide-gray-700">
+        {table.getRowModel().rows.map((row) => {
+          const isActiveRow = row.original.id === returnId;
+
+          return (
+            <tr
+              key={row.id}
+              onClick={() => handleRowClick(row)}
+              className={clsx('transition-colors duration-200 hover:bg-gray-700', {
+                'cursor-pointer': !row.original.available,
+                'bg-cyan-950 hover:bg-cyan-950': isActiveRow,
+              })}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <td
+                  key={cell.id}
+                  className={clsx('whitespace-nowrap px-6 py-4 text-sm text-gray-400')}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

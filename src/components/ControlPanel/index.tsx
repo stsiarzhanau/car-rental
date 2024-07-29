@@ -76,28 +76,30 @@ export default function ControlPanel() {
   };
 
   return (
-    <div className="m-4">
-      <button
-        className="me-2 h-12 bg-blue-600 px-4 py-2 text-base text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-        onClick={handleRentButtonClick}
-      >
-        Rent
-      </button>
-
-      <button
-        className="me-2 h-12 bg-blue-600 px-4 py-2 text-base text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-        onClick={handleReturnButtonClick}
-      >
-        Return
-      </button>
-
+    <div className="m-4 lg:flex">
       <input
-        className="h-12 border border-gray-600 bg-gray-800 px-4 py-2 text-base text-white focus:border-blue-500  focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+        className="mb-2 h-12 w-full border border-gray-600 bg-gray-800 px-4 py-2 text-base text-white focus:border-blue-500 focus:outline-none focus:ring-2  focus:ring-blue-500/50 lg:me-2 lg:grow"
         type="text"
         placeholder="Enter your name"
         value={name}
         onChange={handleNameChange}
       />
+
+      <div className="grid grid-cols-2 gap-2 lg:min-w-fit">
+        <button
+          className="h-12 bg-blue-600 px-4 py-2 text-base text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          onClick={handleRentButtonClick}
+        >
+          Rent
+        </button>
+
+        <button
+          className="h-12 bg-blue-600 px-4 py-2 text-base text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          onClick={handleReturnButtonClick}
+        >
+          Return
+        </button>
+      </div>
     </div>
   );
 }

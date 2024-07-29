@@ -11,13 +11,14 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <div className="grid h-screen w-screen grid-cols-2">
-          <CarMap />
-          <div>
-            <div className="overflow-x-auto bg-gray-900 text-gray-100 shadow-lg">
+        <div className="grid h-screen w-screen lg:grid-cols-2">
+          <div className="min-h-[40vh]">
+            <CarMap />
+          </div>
+          <div className="flex max-h-[60vh] flex-col bg-gray-800 lg:min-h-screen">
+            <div className="w-screen grow overflow-auto text-gray-100 lg:w-full">
               <CarTable />
             </div>
-
             <ControlPanel />
           </div>
         </div>
