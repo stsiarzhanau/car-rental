@@ -1,0 +1,13 @@
+# Stop the editor from looking for .editorconfig files in the parent directories
+root = true
+
+[*]
+charset = utf-8
+max_line_length = 100
+indent_style = space
+indent_size = 2
+end_of_line = lf
+# trim_trailing_whitespace and insert_final_newline should be set to `true` to
+# be in sync with Prettier
+trim_trailing_whitespace = true
+insert_final_newline = true
