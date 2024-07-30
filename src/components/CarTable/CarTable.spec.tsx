@@ -18,7 +18,6 @@ vi.mock('jotai', async (importOriginal) => {
 });
 
 describe('CarTable', () => {
-  // TODO: consider wrap into QueryProvider and use mocked response from MSW server instead
   const mockCars = [
     { id: '1', vendor: 'Tesla', model: 'Model S', available: true },
     { id: '2', vendor: 'Volkswagen', model: 'Golf', available: false },

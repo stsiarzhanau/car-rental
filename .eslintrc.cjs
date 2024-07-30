@@ -3,7 +3,7 @@ module.exports = {
   env: { browser: true, es2020: true },
   extends: ['@stsiarzhanau/nextjs-typescript/core'],
   ignorePatterns: ['dist', '*.cjs'],
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', '@tanstack/query'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },

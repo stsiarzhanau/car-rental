@@ -33,7 +33,7 @@ export default function ControlPanel() {
       toast.success(`Thank you for returning the car!`);
     },
     onError: () => {
-      setReturnLocation(null); // TODO
+      setReturnLocation(null);
     },
   });
 

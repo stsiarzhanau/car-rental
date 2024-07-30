@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import { useAtom } from 'jotai';
+import { useMemo } from 'react';
 
 import { returnIdAtom, returnLocationAtom } from '../../atoms';
 import { getCars } from '../../requests';
@@ -11,6 +12,10 @@ export default function CarMap() {
   const { data } = useQuery<Car[]>({ queryKey: ['cars'], queryFn: getCars });
   const [returnLocation, setReturnLocation] = useAtom(returnLocationAtom);
   const [returnId] = useAtom(returnIdAtom);
+
+  const carToReturn = useMemo(() => {
+    return data?.find(({ id }) => id === returnId);
+  }, [data, returnId]);
 
   return (
     <APIProvider
@@ -38,9 +43,8 @@ export default function CarMap() {
             key={returnId}
             id={returnId}
             location={returnLocation}
-            // TODO
-            model={data?.find(({ id }) => id === returnId)?.model}
-            vendor={data?.find(({ id }) => id === returnId)?.vendor}
+            model={carToReturn?.model}
+            vendor={carToReturn?.vendor}
           />
         )}
       </Map>
