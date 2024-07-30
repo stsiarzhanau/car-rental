@@ -1,11 +1,15 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'sonner';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { toast, Toaster } from 'sonner';
 
 import CarMap from './components/CarMap';
 import CarTable from './components/CarTable';
 import ControlPanel from './components/ControlPanel';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => toast.error(`Something went wrong: ${error.message}`),
+  }),
+});
 
 function App() {
   return (
@@ -23,7 +27,7 @@ function App() {
           </div>
         </div>
       </QueryClientProvider>
-      <Toaster position="top-right" />
+      <Toaster position="top-right" richColors />
     </>
   );
 }

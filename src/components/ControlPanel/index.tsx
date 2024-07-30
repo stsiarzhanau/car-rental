@@ -22,6 +22,9 @@ export default function ControlPanel() {
       setRentId(null);
       toast.success(`Dear ${name}, thank you for renting a car!`);
     },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 
   const returnMutation = useMutation({
@@ -32,8 +35,9 @@ export default function ControlPanel() {
       setReturnLocation(null);
       toast.success(`Thank you for returning the car!`);
     },
-    onError: () => {
+    onError: (error) => {
       setReturnLocation(null);
+      toast.error(error.message);
     },
   });
 

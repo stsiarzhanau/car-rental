@@ -23,7 +23,6 @@ export const handlers = [
 
     await delay();
     return HttpResponse.json(cars);
-    // TODO: error handling
   }),
 
   http.post('api/return/:id', async ({ request, params }) => {
@@ -42,6 +41,5 @@ export const handlers = [
 
     await delay();
     return HttpResponse.json(cars);
-    // TODO: error handling
   }),
 ];
