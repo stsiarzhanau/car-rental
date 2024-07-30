@@ -7,6 +7,7 @@ import { useAtom } from 'jotai';
 import { returnIdAtom, returnLocationAtom } from '../../atoms';
 import { getCars } from '../../requests';
 import { Car, Location } from '../../types';
+import CarTableSkeleton from '../CarTableSkeleton';
 
 const columns: ColumnDef<Car>[] = [
   {
@@ -47,7 +48,7 @@ const columns: ColumnDef<Car>[] = [
 const fallbackData = [] as Car[];
 
 export default function CarTable() {
-  const { data } = useQuery<Car[]>({ queryKey: ['cars'], queryFn: getCars });
+  const { data, isPending } = useQuery<Car[]>({ queryKey: ['cars'], queryFn: getCars });
   const [returnId, setReturnId] = useAtom(returnIdAtom);
   const [, setReturnLocation] = useAtom(returnLocationAtom);
 
@@ -68,49 +69,55 @@ export default function CarTable() {
     }
   };
 
-  return (
-    <table className="min-w-full divide-y divide-gray-700 bg-gray-800">
-      <thead className="sticky top-0 bg-inherit">
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th
-                key={header.id}
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400"
-              >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(header.column.columnDef.header, header.getContext())}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody className="divide-y divide-gray-700">
-        {table.getRowModel().rows.map((row) => {
-          const isActiveRow = row.original.id === returnId;
+  if (isPending) {
+    return <CarTableSkeleton />;
+  }
 
-          return (
-            <tr
-              key={row.id}
-              onClick={() => handleRowClick(row)}
-              className={clsx('transition-colors duration-200 hover:bg-gray-700', {
-                'cursor-pointer': !row.original.available,
-                'bg-cyan-950 hover:bg-cyan-950': isActiveRow,
-              })}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className={clsx('whitespace-nowrap px-6 py-4 text-sm text-gray-400')}
+  if (data) {
+    return (
+      <table className="min-w-full divide-y divide-gray-700 bg-gray-800">
+        <thead className="sticky top-0 bg-inherit">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400"
                 >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </th>
               ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+          ))}
+        </thead>
+        <tbody className="divide-y divide-gray-700">
+          {table.getRowModel().rows.map((row) => {
+            const isActiveRow = row.original.id === returnId;
+
+            return (
+              <tr
+                key={row.id}
+                onClick={() => handleRowClick(row)}
+                className={clsx('transition-colors duration-200 hover:bg-gray-700', {
+                  'cursor-pointer': !row.original.available,
+                  'bg-cyan-950 hover:bg-cyan-950': isActiveRow,
+                })}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    className={clsx('whitespace-nowrap px-6 py-4 text-sm text-gray-400')}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
 }
