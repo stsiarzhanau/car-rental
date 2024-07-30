@@ -76,7 +76,7 @@ export default function ControlPanel() {
   };
 
   return (
-    <div className="m-4 lg:flex">
+    <div className="m-4 mb-14 lg:mb-4 lg:flex">
       <input
         className="mb-2 h-12 w-full border border-gray-600 bg-gray-800 px-4 py-2 text-base text-white focus:border-blue-500 focus:outline-none focus:ring-2  focus:ring-blue-500/50 lg:me-2 lg:grow"
         type="text"

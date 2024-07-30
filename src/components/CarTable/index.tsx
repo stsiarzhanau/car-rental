@@ -3,6 +3,7 @@ import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tan
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
 import { useAtom } from 'jotai';
+import { twMerge } from 'tailwind-merge';
 
 import { returnIdAtom, returnLocationAtom } from '../../atoms';
 import { getCars } from '../../requests';
@@ -100,16 +101,15 @@ export default function CarTable() {
               <tr
                 key={row.id}
                 onClick={() => handleRowClick(row)}
-                className={clsx('transition-colors duration-200 hover:bg-gray-700', {
-                  'cursor-pointer': !row.original.available,
-                  'bg-cyan-950 hover:bg-cyan-950': isActiveRow,
-                })}
+                className={twMerge(
+                  clsx('transition-colors duration-200 hover:bg-gray-700', {
+                    'cursor-pointer': !row.original.available,
+                    'bg-cyan-950 hover:bg-cyan-950': isActiveRow,
+                  }),
+                )}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className={clsx('whitespace-nowrap px-6 py-4 text-sm text-gray-400')}
-                  >
+                  <td key={cell.id} className="whitespace-nowrap px-6 py-4 text-sm text-gray-400">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

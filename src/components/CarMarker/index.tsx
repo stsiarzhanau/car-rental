@@ -1,6 +1,7 @@
 import { AdvancedMarker, InfoWindow, useAdvancedMarkerRef } from '@vis.gl/react-google-maps';
 import { clsx } from 'clsx';
 import { useAtom } from 'jotai';
+import { twMerge } from 'tailwind-merge';
 
 import { rentIdAtom } from '../../atoms';
 import type { Car } from '../../types';
@@ -8,9 +9,10 @@ import type { Car } from '../../types';
 export default function CarMarker({ id, location, vendor, model }: Partial<Car>) {
   const [markerRef, marker] = useAdvancedMarkerRef();
   const [rentId, setRentId] = useAtom(rentIdAtom);
+  const isSelectedToRent = id === rentId;
 
   const handleMarkerClick = (id: string) => {
-    id === rentId ? setRentId(null) : setRentId(id);
+    isSelectedToRent ? setRentId(null) : setRentId(id);
   };
 
   const handleClose = () => {
@@ -29,16 +31,18 @@ export default function CarMarker({ id, location, vendor, model }: Partial<Car>)
         <img
           src="/car.svg"
           alt="Car"
-          className={clsx('w-8 transition-[width] duration-200', {
-            'w-12': id === rentId,
-          })}
+          className={twMerge(
+            clsx('w-8 transition-[width] duration-200', {
+              'w-12': isSelectedToRent,
+            }),
+          )}
         />
       </AdvancedMarker>
 
-      {id === rentId && (
+      {isSelectedToRent && (
         <InfoWindow anchor={marker} onClose={handleClose}>
           <div className="text-black">
-            <h2>
+            <h2 className="py-2">
               {vendor} {model}
             </h2>
           </div>
