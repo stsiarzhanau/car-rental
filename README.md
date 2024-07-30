@@ -1,4 +1,20 @@
-# React + TypeScript + Vite + Vitest + React Testing Library + Tailwind CSS
+# For reviewers
+
+## How to start
+
+There are several available options
+
+1. App is deployed on Netify, so you can just visit https://stsiarzhanau-car-rental.netlify.app/ to see it running.
+2. App is containerized and Docker image pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental:v0.1.0` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental:v0.1.0` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
+
+- Local: http://localhost:3000
+- Network: http://192.168.0.73:3000
+
+3. If you have Node.js (v20 is recommended) and npm installed you can also run production preview locally (will be available on the same Local and Network URLs as above) by running `npm install`, `npm run build` and then `npm start` from the project root directory.
+
+---
+
+# About starter project
 
 This project is based on a [Vite](https://vitejs.dev/) project bootstrapped with [`create-vite`](https://github.com/vitejs/vite/tree/main/packages/create-vite) from `react-ts` template (React + TypeScript).
 
@@ -12,7 +28,7 @@ On top of the default Vite + React + Typescript setup, this starter project incl
 - **Pre-commit hook** to lint and format staged files on commit with husky and lint-staged;
 - **Environment for unit tests** with Vite and React Testing Library.
 
-## Getting Started
+## Getting Startedif you use docker-compose
 
 Clone this repository. Cloning the repository will download all files including the configuration files and scripts needed to run and develop the project locally.
 
