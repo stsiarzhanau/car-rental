@@ -5,14 +5,20 @@
 There are several available options
 
 1. App is deployed on Netify, so you can just visit https://stsiarzhanau-car-rental.netlify.app/ to see it running.
-2. App is containerized and Docker image pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental:v0.1.0` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental:v0.1.0` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
+2. App is containerized and Docker [image](https://hub.docker.com/r/stsiarzhanau/car-rental/tags) pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental:v0.1.0` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental:v0.1.0` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
 
 - Local: http://localhost:3000
 - Network: http://192.168.0.73:3000
 
 3. If you have Node.js (v20 is recommended) and npm installed you can also run production preview locally (will be available on the same Local and Network URLs as above) by running `npm install`, `npm run build` and then `npm start` from the project root directory.
 
----
+## Project architecture
+
+I've decided to build the app as a React SPA application using my own [starter project](https://hub.docker.com/r/stsiarzhanau/car-rental/tags). To make the application as similar as possible to the real production I mocked the API using [msw](https://mswjs.io/), and [@tanstack/react-query] is used to manage the "server" state. For the same reason, [jotai](https://jotai.org/) is used to manage the client state instead of plain React Context API, which would, in principle, be enough for such a simple project. The same applies to [@tanstack/react-table](https://tanstack.com/table/latest/docs/introduction) - for this functionality, it would be possible to do with a regular HTML table, but `@tanstack/react-table` gives us the opportunity to quickly integrate new features in the future.
+
+[TailwindCSS](https://tailwindcss.com/docs/installation) is used for styling. I've decided not to use any UI frameworks (if I had decided, I would have used [shadcn/ui](https://ui.shadcn.com/docs)) because there are not many UI elements in the application.
+
+For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used.
 
 # About starter project
 
