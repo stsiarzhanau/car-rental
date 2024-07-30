@@ -20,6 +20,8 @@ I've decided to build the app as a React SPA application using my own [starter p
 
 For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used.
 
+I included flowcharts for Rent and Return flows as a PDF files. There's also a diagram showing relationship between React components and server and client states.
+
 # About starter project
 
 This project is based on a [Vite](https://vitejs.dev/) project bootstrapped with [`create-vite`](https://github.com/vitejs/vite/tree/main/packages/create-vite) from `react-ts` template (React + TypeScript).
