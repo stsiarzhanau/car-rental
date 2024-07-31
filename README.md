@@ -5,7 +5,7 @@
 There are several available options
 
 1. App is deployed on Netify, so you can just visit https://stsiarzhanau-car-rental.netlify.app/ to see it running and test on real mobile devices.
-2. App is containerized and Docker [image](https://hub.docker.com/r/stsiarzhanau/car-rental/tags) pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental:v0.2.0` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental:v0.2.0` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
+2. App is containerized and Docker [image](https://hub.docker.com/r/stsiarzhanau/car-rental/tags) pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
 
 - Local: http://localhost:3000
 - Network: http://192.168.0.73:3000
@@ -21,6 +21,9 @@ I've decided to build the app as a React SPA application using my own [starter p
 For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used. I've also included [Playwright](https://playwright.dev/docs/intro) end-to-end tests for rent and return flows which can be launched from the `e2e` directory with `npx playwright test`.
 
 I provided flowcharts for Rent and Return flows as a PDF files. There's also a diagram showing relationship between React components and server and client states.
+
+Regards,
+Alex
 
 # About starter project
 
