@@ -10,7 +10,7 @@ There are several available options
 - Local: http://localhost:3000
 - Network: http://192.168.0.73:3000
 
-3. If you have Node.js (v20 is recommended) and npm installed you can also run production preview locally (will be available on the same Local and Network URLs as above) by running `npm install`, `npm run build` and then `npm start` from the project root directory.
+3. If you have Node.js (v20 is recommended) and npm installed you can also run production preview locally (will be available on the same Local and Network URLs as above) by running `npm install`, `npm run build` and then `npm start` from the project root directory. Note that you'll need to define `.env.local` file in the project root and set 2 environment variables `VITE_GOOGLE_MAPS_API_KEY` and `VITE_GOOGLE_MAPS_MAP_ID` with your own to make the application work as I do not include my personal keys in the repo.
 
 ## Project architecture
 
