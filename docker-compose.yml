@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   sampleproject:
-    image: stsiarzhanau/car-rental:v0.1.0
+    image: stsiarzhanau/car-rental:v0.2.0
     build:
       context: .
       dockerfile: ./Dockerfile

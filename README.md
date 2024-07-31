@@ -5,7 +5,7 @@
 There are several available options
 
 1. App is deployed on Netify, so you can just visit https://stsiarzhanau-car-rental.netlify.app/ to see it running and test on real mobile devices.
-2. App is containerized and Docker [image](https://hub.docker.com/r/stsiarzhanau/car-rental/tags) pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental:v0.1.0` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental:v0.1.0` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
+2. App is containerized and Docker [image](https://hub.docker.com/r/stsiarzhanau/car-rental/tags) pushed to DockerHub, so you can pull it with `docker pull stsiarzhanau/car-rental:v0.2.0` and then start a container with either `docker run -dp 3000:3000 stsiarzhanau/car-rental:v0.2.0` or `docker compose up` (if you use docker-compose) from the project root directory. App will be available on the following URLs:
 
 - Local: http://localhost:3000
 - Network: http://192.168.0.73:3000
