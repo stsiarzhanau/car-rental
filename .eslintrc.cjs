@@ -8,6 +8,6 @@ module.exports = {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
   parserOptions: {
-    project: ['./tsconfig.app.json', './tsconfig.node.json'],
+    project: ['./tsconfig.app.json', './tsconfig.node.json', './e2e/tsconfig.json'],
   },
 };

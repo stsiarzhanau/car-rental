@@ -18,9 +18,9 @@ I've decided to build the app as a React SPA application using my own [starter p
 
 [TailwindCSS](https://tailwindcss.com/docs/installation) is used for styling. I've decided not to use any UI frameworks (if I had decided, I would have used [shadcn/ui](https://ui.shadcn.com/docs)) because there are not many UI elements in the application. I have tried to make the application styles good looking and provide user-friendliness on mobile devices through the use of a mobile first approach and responsive design.
 
-For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used.
+For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used. I've also included [Playwright](https://playwright.dev/docs/intro) end-to-end tests for rent and return flows which can be launched from the `e2e` directory with `npx playwright test`.
 
-I included flowcharts for Rent and Return flows as a PDF files. There's also a diagram showing relationship between React components and server and client states.
+I provided flowcharts for Rent and Return flows as a PDF files. There's also a diagram showing relationship between React components and server and client states.
 
 # About starter project
 
