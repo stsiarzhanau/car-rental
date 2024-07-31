@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { useAtom } from 'jotai';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import CarTable from '.';
 
@@ -18,14 +18,21 @@ vi.mock('jotai', async (importOriginal) => {
 });
 
 describe('CarTable', () => {
+  let user: ReturnType<typeof userEvent.setup>;
+
   const mockCars = [
     { id: '1', vendor: 'Tesla', model: 'Model S', available: true },
     { id: '2', vendor: 'Volkswagen', model: 'Golf', available: false },
   ];
 
   beforeEach(() => {
+    user = userEvent.setup();
     vi.mocked(useQuery).mockReturnValue({ data: mockCars } as UseQueryResult);
     vi.mocked(useAtom).mockReturnValue([null, vi.fn()] as [unknown, never]);
+  });
+
+  afterEach(() => {
+    vi.resetAllMocks();
   });
 
   it('should render the table with correct headers', () => {
@@ -41,13 +48,12 @@ describe('CarTable', () => {
   it('should render the correct number of rows', () => {
     render(<CarTable />);
     const rows = screen.getAllByRole('row');
-    expect(rows.length).toBe(3);
+    expect(rows.length).toBe(3); // 1 for table header
   });
 
-  it('should handle row click for unavailable car', async () => {
+  it('should handle row click for unavailable (rented) car', async () => {
     const setReturnIdMock = vi.fn();
     vi.mocked(useAtom).mockReturnValue([null, setReturnIdMock] as [unknown, never]);
-    const user = userEvent.setup();
 
     render(<CarTable />);
 
@@ -57,15 +63,13 @@ describe('CarTable', () => {
     expect(setReturnIdMock).toHaveBeenCalledWith('2');
   });
 
-  it('handles row click for already selected unavailable car', async () => {
+  it('handles row click for already selected unavailable (rented) car', async () => {
     const setReturnIdMock = vi.fn();
     const setReturnLocationMock = vi.fn();
 
     vi.mocked(useAtom)
       .mockReturnValueOnce(['2', setReturnIdMock] as [unknown, never])
       .mockReturnValueOnce([null, setReturnLocationMock] as [unknown, never]);
-
-    const user = userEvent.setup();
 
     render(<CarTable />);
 
@@ -79,7 +83,6 @@ describe('CarTable', () => {
   it('does not handle row click for available car', async () => {
     const setReturnIdMock = vi.fn();
     vi.mocked(useAtom).mockReturnValue([null, setReturnIdMock] as [unknown, never]);
-    const user = userEvent.setup();
 
     render(<CarTable />);
 
