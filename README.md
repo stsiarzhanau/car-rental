@@ -14,9 +14,9 @@ There are several available options
 
 ## Project architecture
 
-I've decided to build the app as a React SPA application using my own [starter project](https://hub.docker.com/r/stsiarzhanau/car-rental/tags). To make the application as similar as possible to the real production I mocked the API using [msw](https://mswjs.io/), and [@tanstack/react-query] is used to manage the "server" state. For the same reason, [jotai](https://jotai.org/) is used to manage the client state instead of plain React Context API, which would, in principle, be enough for such a simple project. The same applies to [@tanstack/react-table](https://tanstack.com/table/latest/docs/introduction) - for this functionality, it would be possible to do with a regular HTML table, but `@tanstack/react-table` gives us the opportunity to quickly integrate new features in the future.
+I've decided to build the app as a React SPA application using my own [starter project](https://hub.docker.com/r/stsiarzhanau/car-rental/tags). To make the application as similar as possible to the real production I mocked the API using [msw](https://mswjs.io/), and [@tanstack/react-query](https://tanstack.com/query/latest/docs/framework/react/overview) is used to manage the "server" state. For the same reason, [jotai](https://jotai.org/) is used to manage the client state instead of plain React Context API, which would, in principle, be enough for such a simple project. The same applies to [@tanstack/react-table](https://tanstack.com/table/latest/docs/introduction) - for this functionality, it would be possible to do with a regular HTML table, but `@tanstack/react-table` gives us the opportunity to quickly integrate new features in the future.
 
-[TailwindCSS](https://tailwindcss.com/docs/installation) is used for styling. I've decided not to use any UI frameworks (if I had decided, I would have used [shadcn/ui](https://ui.shadcn.com/docs)) because there are not many UI elements in the application. I have tried to make the application styles good looking and provide user-friendliness on mobile devices through the use of a mobile first approach and responsive design.
+[TailwindCSS](https://tailwindcss.com/docs/installation) is used for styling. I've decided not to use any UI frameworks or component libraries (if I had decided, I would have used [shadcn/ui](https://ui.shadcn.com/docs)) because there are not many UI elements in the application. I have tried to make the application styles good looking and provide user-friendliness on mobile devices through the use of a mobile first approach and responsive design.
 
 For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used. I've also included [Playwright](https://playwright.dev/docs/intro) end-to-end tests for rent and return flows which can be launched from the `e2e` directory with `npx playwright test`.
 
@@ -39,7 +39,7 @@ On top of the default Vite + React + Typescript setup, this starter project incl
 - **Pre-commit hook** to lint and format staged files on commit with husky and lint-staged;
 - **Environment for unit tests** with Vite and React Testing Library.
 
-## Getting Startedif you use docker-compose
+## Getting Started
 
 Clone this repository. Cloning the repository will download all files including the configuration files and scripts needed to run and develop the project locally.
 
