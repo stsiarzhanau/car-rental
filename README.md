@@ -20,7 +20,7 @@ I've decided to build the app as a React SPA application using my own [starter p
 
 For component tests [Vitest](https://vitest.dev/guide/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) are used. I've also included [Playwright](https://playwright.dev/docs/intro) end-to-end tests for rent and return flows which can be launched from the `e2e` directory with `npx playwright test`.
 
-I provided flowcharts for Rent and Return flows as a PDF files. There's also a diagram showing relationship between React components and server and client states.
+I provided flowcharts for Rent and Return flows as a PDF files (see project's Wiki). There's also a diagram showing relationship between React components and server and client states.
 
 Regards,
 Alex
