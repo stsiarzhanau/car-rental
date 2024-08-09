@@ -2,7 +2,7 @@
   "name": "car-rental",
   "private": true,
   "author": "Aliaksandr Stsiarzhanau <sterzhanoff@gmail.com>",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
