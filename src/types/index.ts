@@ -12,3 +12,5 @@ export interface Car {
   bookedBy?: string;
   location: Location;
 }
+
+export type SelectFunction<TInput, TOutput> = (data: TInput) => TOutput;

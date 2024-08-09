@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { rentIdAtom, returnIdAtom, returnLocationAtom } from '../../atoms';
 import { rentCar, returnCar } from '../../requests';
 import { Location } from '../../types';
+import { useAllCarsAvailable, useAllCarsRented } from './hooks';
 
 export default function ControlPanel() {
   const queryClient = useQueryClient();
@@ -13,6 +14,8 @@ export default function ControlPanel() {
   const [rentId, setRentId] = useAtom(rentIdAtom);
   const [returnId, setReturnId] = useAtom(returnIdAtom);
   const [returnLocation, setReturnLocation] = useAtom(returnLocationAtom);
+  const { data: allCarsAvailable } = useAllCarsAvailable();
+  const { data: allCarsRented } = useAllCarsRented();
 
   const rentMutation = useMutation({
     mutationFn: (data: { id: string; name: string }) => rentCar(data),
@@ -42,6 +45,10 @@ export default function ControlPanel() {
   });
 
   const handleRentButtonClick = () => {
+    if (allCarsRented) {
+      return toast.info('Unfortunately, due to high demand, all our cars have already been rented');
+    }
+
     if (!rentId && !name) {
       toast.info('Please enter your name and select the desired car on the map');
     } else if (!rentId) {
@@ -57,6 +64,10 @@ export default function ControlPanel() {
   };
 
   const handleReturnButtonClick = () => {
+    if (allCarsAvailable) {
+      return toast.info('At the moment, all cars have been returned');
+    }
+
     if (!returnId && !returnLocation) {
       toast.info(
         'Please select the car you want to return by clicking on the corresponding table row and then specify the return location on the map',

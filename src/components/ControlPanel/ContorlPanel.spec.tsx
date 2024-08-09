@@ -1,4 +1,4 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { useMutation, UseMutationResult, UseQueryResult } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { toast } from 'sonner';
@@ -6,11 +6,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { rentIdAtom, returnIdAtom, returnLocationAtom } from '../../atoms';
 import { renderWithJotaiProvider } from '../../test-utils';
+import { useAllCarsAvailable, useAllCarsRented } from './hooks';
 import ControlPanel from './index';
 
 vi.mock('@tanstack/react-query', () => ({
   useMutation: vi.fn(),
   useQueryClient: vi.fn(),
+}));
+
+vi.mock('./hooks', () => ({
+  useAllCarsAvailable: vi.fn(),
+  useAllCarsRented: vi.fn(),
 }));
 
 vi.mock('sonner', () => ({
@@ -27,6 +33,16 @@ describe('ControlPanel', () => {
   beforeEach(() => {
     user = userEvent.setup();
     vi.mocked(useMutation).mockReturnValue({ mutate: mockMutate } as unknown as UseMutationResult);
+
+    vi.mocked(useAllCarsAvailable).mockReturnValue({ data: false } as UseQueryResult<
+      boolean,
+      unknown
+    >);
+
+    vi.mocked(useAllCarsRented).mockReturnValue({ data: false } as UseQueryResult<
+      boolean,
+      unknown
+    >);
   });
 
   afterEach(() => {
@@ -104,6 +120,7 @@ describe('ControlPanel', () => {
       expect(toast.info).toHaveBeenCalledWith(
         'Please select the car you want to return by clicking on the corresponding table row and then specify the return location on the map',
       );
+      expect(mockMutate).not.toHaveBeenCalled();
     });
 
     it('shows proper info toast when a car is selected but no location is specified', async () => {
@@ -118,6 +135,7 @@ describe('ControlPanel', () => {
       await user.click(screen.getByText('Return'));
 
       expect(toast.info).toHaveBeenCalledWith('Please specify the return location on the map');
+      expect(mockMutate).not.toHaveBeenCalled();
     });
 
     it('calls returnCar mutation when both car and location are provided', async () => {
@@ -132,6 +150,34 @@ describe('ControlPanel', () => {
       await user.click(screen.getByText('Return'));
 
       expect(mockMutate).toHaveBeenCalledWith({ id: '1', location: { lat: 1, lng: 1 } });
+    });
+
+    it('shows proper info toast when all cars have been returned', async () => {
+      vi.mocked(useAllCarsAvailable).mockReturnValue({ data: true } as UseQueryResult<
+        boolean,
+        unknown
+      >);
+
+      render(<ControlPanel />);
+
+      await user.click(screen.getByText('Return'));
+
+      expect(toast.info).toHaveBeenCalledWith('At the moment, all cars have been returned');
+    });
+
+    it('shows proper info toast when all cars have already been rented', async () => {
+      vi.mocked(useAllCarsRented).mockReturnValue({ data: true } as UseQueryResult<
+        boolean,
+        unknown
+      >);
+
+      render(<ControlPanel />);
+
+      await user.click(screen.getByText('Rent'));
+
+      expect(toast.info).toHaveBeenCalledWith(
+        'Unfortunately, due to high demand, all our cars have already been rented',
+      );
     });
   });
 });
